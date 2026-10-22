@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin | EventHub</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="wrap">
+        <h1>Manage events</h1>
+        <form class="box" id="evForm" novalidate style="max-width:700px"><input type="hidden"
+                name="id"><label>Title<input name="title"></label><label>Category<select
+                    name="category"></select></label><label>Date<input name="date" type="date"></label><label>Time<input
+                    name="time" type="time"></label><label>Location<input name="location"></label><label>Price (₹)<input
+                    name="price" type="number" min="0"></label><label>Seats<input name="seats" type="number"
+                    min="0"></label><label>Description<textarea name="desc" rows="3"></textarea></label><label>Schedule
+                (separate items with |)<input name="schedule"></label>
+            <div class="err" id="err"></div><button class="btn" id="save">Add event</button>
+        </form>
+        <div style="overflow-x:auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Seats</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="foot"></div>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

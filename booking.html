@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Booking | EventHub</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div class="wrap">
+        <div id="info" style="max-width:520px;margin:auto"></div>
+        <form class="box" id="bookForm" novalidate><label>Full name<input name="name"></label><label>Email<input
+                    name="email" type="email"></label><label>Phone (10 digits)<input name="phone"
+                    inputmode="numeric"></label><label>Tickets<input name="tickets" type="number" min="1"
+                    value="1"></label><b id="total"></b>
+            <div class="err" id="err"></div><button class="btn">Confirm booking</button>
+        </form>
+    </div>
+    <div id="foot"></div>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+
+</html>
