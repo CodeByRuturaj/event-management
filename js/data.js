@@ -1,0 +1,16 @@
+const DB = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v === null ? d : v } catch (e) { return d } }, set(k, v) { localStorage.setItem(k, JSON.stringify(v)) } };
+const q = s => document.querySelector(s), param = k => new URLSearchParams(location.search).get(k);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const CATS = { Conference: ['💼', '#4263eb,#1b1f3b'], Music: ['🎵', '#d6336c,#7048e8'], Sports: ['⚽', '#2f9e44,#1b1f3b'], Workshop: ['🛠️', '#f08c00,#d6336c'], Festival: ['🎆', '#7048e8,#d6336c'] };
+const icon = c => (CATS[c] || ['🎉'])[0], grad = c => `linear-gradient(135deg,${(CATS[c] || ['', '#4263eb,#1b1f3b'])[1]})`;
+const seed = [
+    { id: 1, title: "Tech Summit 2026", category: "Conference", date: "2026-12-05", time: "10:00", location: "Bengaluru", price: 499, seats: 120, desc: "A one-day summit on AI, cloud and web with talks from industry leaders.", schedule: "10:00 Keynote|12:30 Lunch|14:00 Panels|16:00 Networking" },
+    { id: 2, title: "Sunset Music Fest", category: "Music", date: "2026-11-20", time: "17:00", location: "Goa", price: 799, seats: 300, desc: "Live bands, food stalls and a beachside sunset set.", schedule: "17:00 Gates open|18:00 Indie bands|20:30 Headliner" },
+    { id: 3, title: "City Marathon", category: "Sports", date: "2026-11-15", time: "06:00", location: "Pune", price: 299, seats: 500, desc: "5K, 10K and half-marathon routes through the city.", schedule: "06:00 Warm-up|06:30 Start|10:00 Awards" },
+    { id: 4, title: "Web Dev Workshop", category: "Workshop", date: "2026-12-12", time: "09:30", location: "Belagavi", price: 199, seats: 40, desc: "Hands-on HTML, CSS and JavaScript workshop for beginners.", schedule: "09:30 Setup|10:00 HTML & CSS|13:00 Lunch|14:00 JavaScript" },
+    { id: 5, title: "Diwali Cultural Night", category: "Festival", date: "2026-11-08", time: "18:30", location: "Hubballi", price: 149, seats: 200, desc: "Dance, music and lights to celebrate the festival together.", schedule: "18:30 Welcome|19:00 Performances|21:00 Fireworks" },
+    { id: 6, title: "Startup Pitch Day", category: "Conference", date: "2027-01-10", time: "11:00", location: "Mumbai", price: 349, seats: 80, desc: "Ten startups pitch to investors. Attendees vote for the audience favorite.", schedule: "11:00 Intro|11:30 Pitches|15:00 Voting" }];
+function getEvents() { let e = DB.get('events'); if (!e) { e = seed; DB.set('events', e) } return e }
+const saveEvents = e => DB.set('events', e), getUser = () => DB.get('user', null), getBookings = () => DB.get('bookings', []);
+function getUsers() { let u = DB.get('users'); if (!u) { u = [{ name: 'Admin', email: 'admin@event.com', password: 'admin123', role: 'admin' }]; DB.set('users', u) } return u }
+function card(e) { return `<div class="card"><div class="banner" style="background:${grad(e.category)}">${icon(e.category)}</div><div class="body"><span class="tag">${esc(e.category)}</span><h3>${esc(e.title)}</h3><div class="meta">${esc(e.date)} at ${esc(e.time)}, ${esc(e.location)}</div><div class="price">₹${e.price}</div><div class="muted">${e.seats > 0 ? e.seats + ' seats left' : 'Sold out'}</div><a class="btn sm" href="event-details.html?id=${e.id}">View details</a></div></div>` }
